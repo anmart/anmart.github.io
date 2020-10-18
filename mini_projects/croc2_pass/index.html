@@ -117,7 +117,7 @@
 		document.getElementById("passwordElement").innerHTML = "Password: " + passString;
 	}
 
-	const villNames = [["FedEx","Crow","Cage"],["SMan","PPJs","Herb"],["Water","Lava","Robo"],["Bees","DDR","Maths"]];
+	const villNames = [["Items","Crow","Cage"],["Snowman","Mines","Herb"],["Water","Gears","Robo"],["Jewel<sup>(Bees)</sup>","Mayor<sup>(DDR)</sup>","Letter<sup>(Maths)</sup>"]];
 	function changeHighestClearance(){
 		names = villNames[parseInt(document.getElementById("highestClearance").selectedIndex)]
 		document.getElementById("highestLevelComp_0_l").innerHTML = names[0];
@@ -135,18 +135,18 @@
 </head>
 <body>
 <h1>Croc 2 GBC Password Generator</h1>
-<label for="livesLeft">Lives remaining:</label><input id="livesLeft" type="text" maxLength ="2" value="0"/><br/>
-<label for="hearts">Heart containers:</label><input id="hearts" type="text" maxLength ="1" value="0"/><br/>
+<label for="livesLeft">Lives remaining:</label><input id="livesLeft" type="number" value="0" max="10" min="0"/><sup>[0-10]</sup><br/>
+<label for="hearts">Heart containers:</label><input id="hearts" type="number" max="8" min="3" value="3"/><sup>[3-8]</sup><br/>
 <input id="phoenixTail" type="checkbox" value="Tail of Phoenix"/><label for="phoenixTail">Tail of Phoenix</label><br/>
-<label for="roboGobbos">Robo Gobbos:</label><input id="roboGobbos" type="text" maxLength ="1" value="0"/><br/>
+<label for="roboGobbos">Robo Gobbos:</label><input id="roboGobbos" type="number" max="3" min="0" value="0"/><sup>[0-3]</sup><br/>
 <input id="jumpJelly" type="checkbox" value="Jump Jelly"/><label for="jumpJelly">Jump Jelly</label><br/>
 Sailor Golden Gobbos:
-<input id="sailorGG_0" type="checkbox" value="FedEx"/><label for="sailorGG_0">FedEx</label>
+<input id="sailorGG_0" type="checkbox" value="FedEx"/><label for="sailorGG_0">Items</label>
 <input id="sailorGG_1" type="checkbox" value="Crow"/><label for="sailorGG_1">Crow</label>
 <input id="sailorGG_2" type="checkbox" value="Cage"/><label for="sailorGG_2">Cage</label><br/>
 Cossack Golden Gobbos:
-<input id="cossackGG_0" type="checkbox" value="SMan"/><label for="cossackGG_0">SMan</label>
-<input id="cossackGG_1" type="checkbox" value="PPJs"/><label for="cossackGG_1">PPJs</label>
+<input id="cossackGG_0" type="checkbox" value="SMan"/><label for="cossackGG_0">Snowman</label>
+<input id="cossackGG_1" type="checkbox" value="PPJs"/><label for="cossackGG_1">Mines</label>
 <input id="cossackGG_2" type="checkbox" value="Herb"/><label for="cossackGG_2">Herb</label><br/>
 Current Village: <select onchange="changeCurrentVillage()" id="currentVillage">
 	<option value="Sailor">Sailor</option>
@@ -156,12 +156,12 @@ Current Village: <select onchange="changeCurrentVillage()" id="currentVillage">
 </select><br/>
 Caveman Golden Gobbos:
 <input id="cavemanGG_0" type="checkbox" value="Water"/><label for="cavemanGG_0">Water</label>
-<input id="cavemanGG_1" type="checkbox" value="Lava"/><label for="cavemanGG_1">Lava</label>
+<input id="cavemanGG_1" type="checkbox" value="Lava"/><label for="cavemanGG_1">Gears</label>
 <input id="cavemanGG_2" type="checkbox" value="Robo"/><label for="cavemanGG_2">Robo</label><br/>
 Inca Golden Gobbos:
-<input id="incaGG_0" type="checkbox" value="Bees"/><label for="incaGG_0">Bees</label>
-<input id="incaGG_1" type="checkbox" value="DDR"/><label for="incaGG_1">DDR</label>
-<input id="incaGG_2" type="checkbox" value="Maths"/><label for="incaGG_2">Maths</label><br/>
+<input id="incaGG_0" type="checkbox" value="Bees"/><label for="incaGG_0">Jewel<sup>(Bees)</sup></label>
+<input id="incaGG_1" type="checkbox" value="DDR"/><label for="incaGG_1">Mayor<sup>(DDR)</sup></label>
+<input id="incaGG_2" type="checkbox" value="Maths"/><label for="incaGG_2">Letter<sup>(Maths)</sup></label><br/>
 Highest Clearance: <select onchange="changeHighestClearance()" id="highestClearance">
 	<option value="Sailor">Sailor</option>
 	<option value="Cossack">Cossack</option>
@@ -169,19 +169,19 @@ Highest Clearance: <select onchange="changeHighestClearance()" id="highestCleara
 	<option value="Inca">Inca</option>
 </select><br/>
 Level Completion (Current Village):
-<input id="currentLevelComp_0" type="checkbox" value="first"/><label id="currentLevelComp_0_l" for="currentLevelComp_0">FedEx/SMan/Water/Bees</label>
-<input id="currentLevelComp_1" type="checkbox" value="second"/><label id="currentLevelComp_1_l" for="currentLevelComp_1">Crow/PPJs/Lava/DDR</label>
-<input id="currentLevelComp_2" type="checkbox" value="third"/><label id="currentLevelComp_2_l" for="currentLevelComp_2">Cage/Herb/Robo/Maths</label><br/>
-<label for="money">Money:</label><input id="money" type="text" maxLength ="3" value="0"/><br/>
+<input id="currentLevelComp_0" type="checkbox" value="first"/><label id="currentLevelComp_0_l" for="currentLevelComp_0">Items/Snowman/Water/Jewel</label>
+<input id="currentLevelComp_1" type="checkbox" value="second"/><label id="currentLevelComp_1_l" for="currentLevelComp_1">Crow/Mines/Gears/Mayor</label>
+<input id="currentLevelComp_2" type="checkbox" value="third"/><label id="currentLevelComp_2_l" for="currentLevelComp_2">Cage/Herb/Robo/Letter</label><br/>
+<label for="money">Money:</label><input id="money" type="number" max="100" min="0" value="0"/><sup>[0-100]</sup><br/>
 Level Completion (Highest Village):
-<input id="highestLevelComp_0" type="checkbox" value="first"/><label id="highestLevelComp_0_l" for="highestLevelComp_0">FedEx/SMan/Water/Bees</label>
-<input id="highestLevelComp_1" type="checkbox" value="second"/><label id="highestLevelComp_1_l" for="highestLevelComp_1">Crow/PPJs/Lava/DDR</label>
-<input id="highestLevelComp_2" type="checkbox" value="third"/><label id="highestLevelComp_2_l" for="highestLevelComp_2">Cage/Herb/Robo/Maths</label><br/>
+<input id="highestLevelComp_0" type="checkbox" value="first"/><label id="highestLevelComp_0_l" for="highestLevelComp_0">Items/Snowman/Water/Jewel</label>
+<input id="highestLevelComp_1" type="checkbox" value="second"/><label id="highestLevelComp_1_l" for="highestLevelComp_1">Crow/Mines/Gears/Mayor</label>
+<input id="highestLevelComp_2" type="checkbox" value="third"/><label id="highestLevelComp_2_l" for="highestLevelComp_2">Cage/Herb/Robo/Letter</label><br/>
 <input id="gobboUnlocked" type="checkbox" value="Robo Gobbo Unlocked"/><label for="gobboUnlocked">Robo Gobbo Unlocked</label><br/>
 <input type="submit" value="Generate Password" onclick="generatePassword();" />
 <br/><br/>
 <h2 id="passwordElement">Password: </h2>
 <br/><br/>
-<p> GIANT thank you to everyone that worked on reversing the croc2 passwords. Thank you to Nardanda, Jayrude, and probably Thermospore but he didn't say so in the forum. The spreadsheet can be found <a href="https://docs.google.com/spreadsheets/d/1rviz9_Ij1z_yseItW5hcKa6wz5tA7bVnugUyd1Gbh5U/edit#gid=0">here</a>. Also check out the <a href="https://www.speedrun.com/croc_2_gbc">SRC leaderboard</a> and join our <a href="https://discord.gg/JtrPB3F">Discord server!</a><br/><br/>Currently, there's very little validation for inputs. I might add more to this, but refer to the spreadsheet where necessary, please! If you have any bugs or requests, please create an issue <a href="https://github.com/anmart/anmart.github.io">on Github.</p>
+<p> GIANT thank you to everyone that worked on reversing the croc2 passwords. Thank you to Nardanda, Jayrude, and probably Thermospore but he didn't say so in the forum. The spreadsheet can be found <a href="https://docs.google.com/spreadsheets/d/1rviz9_Ij1z_yseItW5hcKa6wz5tA7bVnugUyd1Gbh5U/edit#gid=0">here</a>. Also check out the <a href="https://www.speedrun.com/croc_2_gbc">SRC leaderboard</a> and join our <a href="https://discord.gg/JtrPB3F">Discord server!</a><br/><br/>Currently, there's very little validation for inputs. I might add more to this, but refer to the spreadsheet where necessary, please! If you have any bugs or requests, please create an issue <a href="https://github.com/anmart/anmart.github.io">on Github.</a> If you know what you're doing, you can inspect element on the ranges and try out arbitrary values. YMMV.</p>
 </body>
 </html>
