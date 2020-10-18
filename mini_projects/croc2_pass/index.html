@@ -112,7 +112,7 @@
 		passString += passwordChars[(currentLevelCompVal<<2) + ((moneyVal>>5)&0b11)];
 		passString += passwordChars[moneyVal&0b11111];
 		passString += passwordChars[highestLevelCompVal<<1];
-		passString += passwordChars[(roboGobboUnlockedVal<<4) + (currentLevelCompVal + roboGobboUnlockedVal)];
+		passString += passwordChars[(roboGobboUnlockedVal<<4) + (highestLevelCompVal + roboGobboUnlockedVal)];
 
 		document.getElementById("passwordElement").innerHTML = "Password: " + passString;
 	}
@@ -135,7 +135,7 @@
 </head>
 <body>
 <h1>Croc 2 GBC Password Generator</h1>
-<label for="livesLeft">Lives remaining:</label><input id="livesLeft" type="number" value="0" max="10" min="0"/><sup>[0-10]</sup><br/>
+<label for="livesLeft">Lives remaining:</label><input id="livesLeft" type="number" value="3" max="10" min="0"/><sup>[0-10]</sup><br/>
 <label for="hearts">Heart containers:</label><input id="hearts" type="number" max="8" min="3" value="3"/><sup>[3-8]</sup><br/>
 <input id="phoenixTail" type="checkbox" value="Tail of Phoenix"/><label for="phoenixTail">Tail of Phoenix</label><br/>
 <label for="roboGobbos">Robo Gobbos:</label><input id="roboGobbos" type="number" max="3" min="0" value="0"/><sup>[0-3]</sup><br/>
