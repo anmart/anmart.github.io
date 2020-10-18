@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>
+	const passwordChars = "BCDFGHJKLMNPQRSTVWXYZ!0123456789";
+
+	function generatePassword(){
+		// calculate checksum and create values for checksummed items
+		let checksum = 0;
+		let livesLeftVal = (parseInt(document.getElementById("livesLeft").value) + 3);
+		checksum += livesLeftVal;
+		let heartsVal = (parseInt(document.getElementById("hearts").value) - 1);
+		checksum += heartsVal;
+		let phoenixTailVal = 0;
+		if (document.getElementById("phoenixTail").checked){
+			checksum += 1;
+			phoenixTailVal = 1;
+		}
+		let roboGobbosVal = parseInt(document.getElementById("roboGobbos").value);
+		checksum += roboGobbosVal;
+		let jumpJellyVal = 0;
+		if (document.getElementById("jumpJelly").checked){
+			checksum += 1;
+			jumpJallyVal = 1;
+		}
+		let cossackGobbosVal = 0;
+		if (document.getElementById("cossackGG_0").checked){
+			cossackGobbosVal += 4;
+		}
+		if (document.getElementById("cossackGG_1").checked){
+			cossackGobbosVal += 2;
+		}
+		if (document.getElementById("cossackGG_2").checked){
+			cossackGobbosVal += 1;
+		}
+		checksum += cossackGobbosVal;
+		let currentVillageVal = parseInt(document.getElementById("currentVillage").selectedIndex);
+		checksum += currentVillageVal;
+		let incaGobbosVal = 0;
+		if (document.getElementById("incaGG_0").checked){
+			incaGobbosVal += 4;
+		}
+		if (document.getElementById("incaGG_1").checked){
+			incaGobbosVal += 2;
+		}
+		if (document.getElementById("incaGG_2").checked){
+			incaGobbosVal += 1;
+		}
+		checksum += incaGobbosVal;
+		let currentLevelCompVal = 0;
+		if (document.getElementById("currentLevelComp_0").checked){
+			currentLevelCompVal += 4;
+		}
+		if (document.getElementById("currentLevelComp_1").checked){
+			currentLevelCompVal += 2;
+		}
+		if (document.getElementById("currentLevelComp_2").checked){
+			currentLevelCompVal += 1;
+		}
+		checksum += currentLevelCompVal;
+		let moneyVal = parseInt(document.getElementById("money").value) + 10;
+		checksum += moneyVal;
+		checksum += 1;
+
+		// non checksum values
+		let sailorGobbosVal = 0;
+		if (document.getElementById("sailorGG_0").checked){
+			sailorGobbosVal += 4;
+		}
+		if (document.getElementById("sailorGG_1").checked){
+			sailorGobbosVal += 2;
+		}
+		if (document.getElementById("sailorGG_2").checked){
+			sailorGobbosVal += 1;
+		}
+
+		let cavemanGobbosVal = 0;
+		if (document.getElementById("cavemanGG_0").checked){
+			cavemanGobbosVal += 4;
+		}
+		if (document.getElementById("cavemanGG_1").checked){
+			cavemanGobbosVal += 2;
+		}
+		if (document.getElementById("cavemanGG_2").checked){
+			cavemanGobbosVal += 1;
+		}
+		let highestClearanceVal = document.getElementById("highestClearance").selectedIndex;
+		let highestLevelCompVal = 0;
+		if (document.getElementById("highestLevelComp_0").checked){
+			highestLevelCompVal += 4;
+		}
+		if (document.getElementById("highestLevelComp_1").checked){
+			highestLevelCompVal += 2;
+		}
+		if (document.getElementById("highestLevelComp_2").checked){
+			highestLevelCompVal += 1;
+		}
+		let roboGobboUnlockedVal = 0;
+		if(document.getElementById("gobboUnlocked").checked){
+			roboGobboUnlockedVal = 1;
+		}
+
+
+		let passString = ""
+		passString += passwordChars[(livesLeftVal << 1) + ((checksum >> 2)&0x1)];
+		passString += passwordChars[(heartsVal << 2) + (phoenixTailVal << 1) + ((roboGobbosVal >> 1) & 0x01)];
+		passString += passwordChars[((roboGobbosVal&0x1)<<4) + (jumpJellyVal<<3) + ((checksum&0x2)<<1) + (sailorGobbosVal >> 1)]; // FAILING: CHECKSUM DIGIT 1
+		passString += passwordChars[((sailorGobbosVal&0x4)<<2) + (cossackGobbosVal<<1) + (checksum&0x1)]; // FAILING: CHECKSUM DIGIT 0
+		passString += passwordChars[(currentVillageVal<<3) + ((~cavemanGobbosVal)&0b111)];
+		passString += passwordChars[(((~incaGobbosVal)&0b111)<<2) + highestClearanceVal];
+		passString += passwordChars[(currentLevelCompVal<<2) + ((moneyVal>>5)&0b11)];
+		passString += passwordChars[moneyVal&0b11111];
+		passString += passwordChars[highestLevelCompVal<<1];
+		passString += passwordChars[(roboGobboUnlockedVal<<4) + (currentLevelCompVal + roboGobboUnlockedVal)];
+
+		document.getElementById("passwordElement").innerHTML = "Password: " + passString;
+	}
+
+	const villNames = [["FedEx","Crow","Cage"],["SMan","PPJs","Herb"],["Water","Lava","Robo"],["Bees","DDR","Maths"]];
+	function changeHighestClearance(){
+		names = villNames[parseInt(document.getElementById("highestClearance").selectedIndex)]
+		document.getElementById("highestLevelComp_0_l").innerHTML = names[0];
+		document.getElementById("highestLevelComp_1_l").innerHTML = names[1];
+		document.getElementById("highestLevelComp_2_l").innerHTML = names[2];
+	}
+	function changeCurrentVillage(){
+		names = villNames[parseInt(document.getElementById("currentVillage").selectedIndex)]
+		document.getElementById("currentLevelComp_0_l").innerHTML = names[0];
+		document.getElementById("currentLevelComp_1_l").innerHTML = names[1];
+		document.getElementById("currentLevelComp_2_l").innerHTML = names[2];
+	}
+</script>
+<title>Croc 2 GBC Password Generator</title>
+</head>
+<body>
+<h1>Croc 2 GBC Password Generator</h1>
+<label for="livesLeft">Live's remaining:</label><input id="livesLeft" type="text" maxLength ="2"/><br/>
+<label for="hearts">heart containers:</label><input id="hearts" type="text" maxLength ="1"/><br/> 
+<input id="phoenixTail" type="checkbox" value="Tail of Phoenix"/><label for="phoenixTail">Tail of Phoenix</label><br/>
+<label for="roboGobbos">roboGobbos:</label><input id="roboGobbos" type="text" maxLength ="1"/><br/>
+<input id="jumpJelly" type="checkbox" value="Jump Jelly"/><label for="jumpJelly">Jump Jelly</label><br/>
+Sailor Golden Gobbos:
+<input id="sailorGG_0" type="checkbox" value="FedEx"/><label for="sailorGG_0">FedEx</label>
+<input id="sailorGG_1" type="checkbox" value="Crow"/><label for="sailorGG_1">Crow</label>
+<input id="sailorGG_2" type="checkbox" value="Cage"/><label for="sailorGG_2">Cage</label><br/>
+Cossack Golden Gobbos:
+<input id="cossackGG_0" type="checkbox" value="SMan"/><label for="cossackGG_0">SMan</label>
+<input id="cossackGG_1" type="checkbox" value="PPJs"/><label for="cossackGG_1">PPJs</label>
+<input id="cossackGG_2" type="checkbox" value="Herb"/><label for="cossackGG_2">Herb</label><br/>
+Current Village: <select onchange="changeCurrentVillage()" id="currentVillage">
+	<option value="Sailor">Sailor</option>
+	<option value="Cossack">Cossack</option>
+	<option value="Caveman">Caveman</option>
+	<option value="Inca">Inca</option>
+</select><br/>
+Caveman Golden Gobbos:
+<input id="cavemanGG_0" type="checkbox" value="Water"/><label for="cavemanGG_0">Water</label>
+<input id="cavemanGG_1" type="checkbox" value="Lava"/><label for="cavemanGG_1">Lava</label>
+<input id="cavemanGG_2" type="checkbox" value="Robo"/><label for="cavemanGG_2">Robo</label><br/>
+Inca Golden Gobbos:
+<input id="incaGG_0" type="checkbox" value="Bees"/><label for="incaGG_0">Bees</label>
+<input id="incaGG_1" type="checkbox" value="DDR"/><label for="incaGG_1">DDR</label>
+<input id="incaGG_2" type="checkbox" value="Maths"/><label for="incaGG_2">Maths</label><br/>
+Highest Clearance: <select onchange="changeHighestClearance()" id="highestClearance">
+	<option value="Sailor">Sailor</option>
+	<option value="Cossack">Cossack</option>
+	<option value="Caveman">Caveman</option>
+	<option value="Inca">Inca</option>
+</select><br/>
+Level Completion (Current Village):
+<input id="currentLevelComp_0" type="checkbox" value="first"/><label id="currentLevelComp_0_l" for="currentLevelComp_0">FedEx/SMan/Water/Bees</label>
+<input id="currentLevelComp_1" type="checkbox" value="second"/><label id="currentLevelComp_1_l" for="currentLevelComp_1">Crow/PPJs/Lava/DDR</label>
+<input id="currentLevelComp_2" type="checkbox" value="third"/><label id="currentLevelComp_2_l" for="currentLevelComp_2">Cage/Herb/Robo/Maths</label><br/>
+<label for="money">Money:</label><input id="money" type="text" maxLength ="3"/><br/>
+Level Completion (Highest Village):
+<input id="highestLevelComp_0" type="checkbox" value="first"/><label id="highestLevelComp_0_l" for="highestLevelComp_0">FedEx/SMan/Water/Bees</label>
+<input id="highestLevelComp_1" type="checkbox" value="second"/><label id="highestLevelComp_1_l" for="highestLevelComp_1">Crow/PPJs/Lava/DDR</label>
+<input id="highestLevelComp_2" type="checkbox" value="third"/><label id="highestLevelComp_2_l" for="highestLevelComp_2">Cage/Herb/Robo/Maths</label><br/>
+<input id="gobboUnlocked" type="checkbox" value="Robo Gobbo Unlocked"/><label for="gobboUnlocked">Robo Gobbo Unlocked</label><br/>
+<input type="submit" value="Generate Password" onclick="generatePassword();" />
+<br/><br/>
+<h2 id="passwordElement">Password: </h2>
+<br/><br/>
+<p> GIANT thank you to everyone that worked on reversing the croc2 passwords. Thank you to Nardanda, Jayrude, and probably Thermospore but he didn't say so in the forum. The spreadsheet can be found <a href="https://docs.google.com/spreadsheets/d/1rviz9_Ij1z_yseItW5hcKa6wz5tA7bVnugUyd1Gbh5U/edit#gid=0">Here</a>. Also check out the <a href="https://www.speedrun.com/croc_2_gbc">SRC leaderboard</a> and join our <a href="https://discord.gg/JtrPB3F">Discord server!</a><br/><br/>Currently, there's very little validation for inputs. I might add more to this, but refer to the spreadsheet where necessary, please!</p>
+</body>
+</html>
